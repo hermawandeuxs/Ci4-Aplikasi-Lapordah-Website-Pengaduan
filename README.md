@@ -1,110 +1,115 @@
-# 📌 Aplikasi Sistem Informasi Pengaduan Masyarakat - LAPORDAH! (CodeIgniter 4)
+# 📌 Aplikasi E-Pengaduan Masyarakat (LAPORDAH!) - Dinas Lingkungan Hidup Kota Pekalongan
 
 ## 📖 Deskripsi
+**LAPORDAH!** (Laporan Daerah) adalah aplikasi berbasis web yang digunakan untuk mendukung pengelolaan pengaduan masyarakat mengenai masalah lingkungan hidup secara digital dan *real-time*. Sistem ini memfasilitasi proses penerimaan laporan dari masyarakat, verifikasi status, disposisi ke bidang terkait, hingga pemantauan penyelesaian pengaduan secara transparan.
 
-Aplikasi ini dibuat untuk mengelola pengaduan masyarakat secara digital, mulai dari pembuatan laporan, verifikasi, disposisi, tindak lanjut, hingga pencetakan laporan.
-
-Aplikasi ini dikembangkan menggunakan framework **CodeIgniter 4** sebagai bagian dari tugas akhir untuk Dinas Lingkungan Hidup (DLH) Kota Pekalongan.
-
+Aplikasi ini dikembangkan untuk mempermudah masyarakat dalam melaporkan permasalahan lingkungan (seperti perapihan pohon, sampah, pencemaran, dll.) serta membantu pihak DLH Kota Pekalongan dalam menindaklanjutinya secara terstruktur.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Fitur Utama & Hak Akses Pengguna
 
-- 📝 Buat Aduan + Unggah Bukti Pendukung
-- 🔍 Jelajah Laporan & Lacak Status via Kode Tracking
-- ✅ Verifikasi & Disposisi Laporan ke Admin Bidang
-- 📈 Update Progres Laporan secara Transparan
-- 📊 Dashboard Super Admin & Admin Bidang
-- 🗂️ Histori, Arsip & Rekap Laporan
-- 🖨️ Cetak Laporan Tahunan / Rekap (PDF)
-- 👥 Manajemen Pengguna (Admin Bidang & Super Admin)
-- 🔎 Pencarian & Filter Data (Status, Kategori, Bidang, Bulan, Tahun)
+Sistem ini memiliki pembagian 3 hak akses utama untuk menjaga keamanan dan prosedur kerja:
 
----
+### 1. Super Admin (Dinas Lingkungan Hidup)
+- 🔐 Login Akun & Dashboard Utama
+- 👥 Kelola Data Pengguna (Tambah/Hapus/Reset Password Admin Bidang)
+- 📁 Kelola & Verifikasi Data Laporan Pengaduan
+- 🔄 Disposisi Laporan masuk ke Admin Bidang terkait
+- 🖨️ Cetak & Rekapitulasi Laporan Pengaduan Tahunan/Bulanan (Ekspor PDF)
 
-## 👥 Hak Akses
+### 2. Admin Bidang (Sekretariat, PPKL, TALING, Kebersihan)
+- 📊 Dashboard Statistik Khusus Bidang (Grafik tren 6 bulan terakhir)
+- ✅ Verifikasi & Tindak Lanjut Laporan (Setujui / Tolak Aduan beserta catatan)
+- 📈 Pembaruan Status Pengaduan (*Set Progress* & *Set Completed*)
+- 🖼️ Unggah Bukti Penyelesaian Dokumen (Foto / PDF hasil kerja)
 
-- **Super Admin:** Dashboard, Kelola Data Pengguna, Kelola Data Laporan Pengaduan, Monitoring Riwayat & Rekapitulasi, Kelola Laporan Tahunan
-- **Admin Bidang:** Dashboard, Verifikasi & Tindak Lanjut Laporan, Pembaruan Status Pengaduan, Cetak / Unduh per Laporan Selesai
-- **Masyarakat:** Pengisian Formulir Pengaduan, Unggah Bukti Pendukung, Pemantauan Status Laporan
+### 3. Masyarakat (Pelapor Daring)
+- 📑 Pengisian Formulir Pengaduan (3 Langkah Mudah: Ketentuan, Data Diri, Form Laporan)
+- 📍 Integrasi Peta / GPS untuk pengambilan lokasi kejadian otomatis
+- 📸 Unggah Bukti Pendukung (Maksimal 3 foto format JPG/PNG/JPEG, maks 2MB per file)
+- 🔍 Pemantauan Status Laporan secara *real-time* menggunakan Kode Tracking di menu Jelajah Laporan
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
-
 - PHP 8+
 - CodeIgniter 4
 - MySQL / MariaDB
 - Bootstrap (Frontend)
-- Chart.js (Dashboard)
-- Google Maps (Preview Lokasi)
-- mPDF (Export PDF)
+- Google Maps API / Leaflet (Sistem Peta Geokoding Lokasi Otomatis)
+- mPDF / DomPDF (Export Rekap & Arsip Laporan ke PDF)
 
 ---
 
 ## 🗂️ Struktur Project (Singkat)
-
-- `app/` → Controller, Model, View
-- `public/` → Entry point & assets
-- `writable/` → Cache & log (tidak diupload)
+- `app/` → Controller, Model, View (Logika Aplikasi LAPORDAH)
+- `public/` → Entry point, assets, & berkas gambar manual book
+- `writable/` → Cache, log, dan folder unggahan bukti aduan masyarakat (`uploads/status_log/`)
 
 ---
 
 ## 🗄️ Database
-
-Database diatur terpisah oleh pengembang. Pastikan sudah import database sebelum menjalankan aplikasi.
+Sebelum menjalankan aplikasi, pastikan Anda telah membuat database baru di phpMyAdmin / MySQL dan mengimpor file basis data berikut:
+```bash
+lapordah_db.sql
+```
 
 ---
 
 ## ⚙️ Cara Menjalankan Project
 
-1. Clone repository:
-
+1. **Clone repository:**
 ```bash
-git clone https://github.com/username/nama-repo.git
-2. Masuk ke folder project:
-cd nama-repo
-3. Install dependency:
+git clone https://github.com
+```
+
+2. **Masuk ke folder project:**
+```bash
+cd lapordah-dlh
+```
+
+3. **Install dependency via Composer:**
+```bash
 composer install
-4. Copy file env:
+```
+
+4. **Salin file lingkungan (environment):**
+```bash
 cp env .env
-5. Setting database di file `.env`:
+```
+
+5. **Konfigurasi Database pada file `.env`:**
+```bash
 database.default.hostname = localhost
-database.default.database = nama_database
+database.default.database = nama_database_lapordah
 database.default.username = root
 database.default.password =
 database.default.DBDriver = MySQLi
-6. Jalankan server:
+```
+
+6. **Jalankan server lokal CodeIgniter:**
+```bash
 php spark serve
-7. Akses di browser:
-http://localhost:8080
----
+```
 
-## 📖 Panduan Penggunaan
-
-Dokumentasi lengkap ada di file `PETUNJUK_PEMAKAIAN_SISTEM.pdf` (36 Halaman):
-- *A.* Hak Akses dan Menu Pengguna
-- *B.* Panduan Penggunaan Sistem LAPORDAH Admin
-- *C.* Petunjuk Pemakaian Sistem LAPORDAH Admin Bidang
-- *D.* Petunjuk Pemakaian Sistem LAPORDAH Masyarakat
+7. **Akses aplikasi melalui browser:**
+- Portal Utama / Masyarakat: `http://localhost:8080`
+- Halaman Login Instansi: `http://localhost:8080/login`
 
 ---
 
-## ⚠️ Catatan
-
-- Folder `writable/` dan file `.env` tidak disertakan di repository
-- Akun Admin / Admin Bidang dibuatkan oleh Super Admin (bukan register mandiri)
-- Masyarakat melapor tanpa login, tapi wajib isi nama, email / nomor HP yang bisa dihubungi
-- Laporan yang belum berstatus `Selesai` tidak bisa diarsipkan
+## ⚠️ Catatan Penting
+- Folder `writable/` dan file `.env` bersifat privat dan tidak ikut diunggah ke repositori GitHub.
+- Penggunaan fitur **Ambil Lokasi Otomatis** pada formulir masyarakat memerlukan izin (*permission*) akses GPS dari peramban/browser yang digunakan.
+- Kategori aduan default meliputi: *Pencemaran Lingkungan, Sampah, Perapihan Pohon,* dan *Lainnya*.
 
 ---
 
 ## 👨‍💻 Author
-
-*Hermawan Prihatno*
+**Hermawan Prihatno**
 Mahasiswa Teknik Informatika Institut Widya Pratama Pekalongan
-Untuk Dinas Lingkungan Hidup (DLH) Kota Pekalongan
+Untuk Dinas Lingkungan Hidup (DLH) Kota Pekalongan. 
 
 ---
 
@@ -118,3 +123,5 @@ Project ini dibuat sebagai:
 - Portofolio pengembangan web
 
 ---
+
+
